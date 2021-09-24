@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Font Manipulator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+      <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <link rel="icon" href="https://image.shutterstock.com/image-illustration/s-isolated-golden-letters-diamonds-260nw-393572542.jpg">
+    </head>
+    <script>
+function setup() {     
+    canvas = createCanvas(500, 500); canvas.position(500, 150); video = createCapture(VIDEO); video.position(100,200) ; video.size(400, 500); posenet = ml5.poseNet(video, modelLoaded); posenet.on('pose', gotPoses);} function modelLoaded() {console.log("Model is successfully loaded!")}; 
+    //Vars
+noseX = 0; noseY = 0; difference = 0; rightWristX = 0; leftWristX = 0; 
+
+function gotPoses (results) {
+if (results.length > 0) {
+    console.log(results); noseX = results[0].pose.nose.x ; noseY = results[0].pose.nose.y; leftWristX = results[0].pose.leftWrist.x; rightWristX = results[0].pose.rightWrist.x; difference = floor(leftWristX - rightWristX)
+}
+}
+function draw(params) {
+    background("gray"); fill("pink"); stroke("black"); text("Devansh", noseX, noseY); textSize(difference)
+}
+        </script>
+        <style>
+            canvas {
+                margin-top: 100px;
+
+            }
+            .WASSER {
+                bottom: 0;
+                margin-top: 500px;
+                
+            }
+        </style>
+
+
+
+        
+        <body>
+            <center>
+                <div style="background-color: darkcyan; color: white; width: 100%; height: 25%;">
+                <br><br><br><h1>Font Manipulator</h1>
+                </div> 
+                <div style="background-color: rgb(97, 97, 197); color: white; font-size: 25px; width: 100%; height: 15%;">
+                <p><b>NOTE: Get your left and right wrist closer to reduce the size of the square and to<br> increase the size of the square keep your left and right wrist far from each other.<br> Move your nose to move the square</b></p>
+                </div>
+                <br><br><br><br>  <br><br><br><br> 
+             <div class="WASSER" style="width: 100%; height: 10%; background-color: red; color: white; font-size: 25px;">
+            <marquee><p><b>Created by: Devansh Dhar</b></p></marquee>
+            </div>
+            <p style="font-size: 20px;">About Posenet</p><br><br>
+          
+            </center>
+        </body>
